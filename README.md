@@ -1,2 +1,2 @@
-# lsdm-database
+# Database
 Database repository
