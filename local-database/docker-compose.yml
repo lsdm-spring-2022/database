@@ -3,7 +3,7 @@ version: '3.8'
 services:
   db:
     container_name: mysqldb
-    image: mysql:latest
+    build: .
     restart: always
     env_file:
       - ./.env
@@ -11,4 +11,3 @@ services:
       - 3306:3306
     volumes:
       - ./mysqldb-data:/var/lib/mysql
-      - ./setup.sql:/docker-entrypoint-initdb.d/setup.sql
