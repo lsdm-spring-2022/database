@@ -3,3 +3,7 @@
 mysqldb-data/
 
 .idea/
+
+reddit-data/
+
+cleaned-reddit-data/
