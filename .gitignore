@@ -8,4 +8,6 @@ reddit-data/
 
 cleaned-reddit-data/
 
-*/error-log.txt
+*log*.txt
+
+logs/

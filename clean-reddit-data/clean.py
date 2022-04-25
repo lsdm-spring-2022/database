@@ -1,6 +1,8 @@
 import os
+import sys
+
 import pandas as pd
-import time
+from datetime import datetime
 
 
 def write_to_error_file(message):
@@ -9,16 +11,24 @@ def write_to_error_file(message):
 
 
 def read_csv_data(file_path, region):
-    current_epoch = int(time.time())
+    current_time = datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
     try:
         df = pd.read_csv(file_path, sep='\t')
+        df = df[df['over_18'] == False]
         df_copy = df[['created_utc', 'subreddit', 'title', 'score', 'num_comments']].copy()
         df_copy['region'] = region
-        df_copy['date_stored'] = current_epoch
-        return df_copy.replace(r'\r+|\n+|\t+|\,+','', regex=True)
+        df_copy['date_stored'] = current_time
+        df_copy['title'] = df_copy['title'].replace(r'\r+|\n+|\t+|\,+|\'+', '', regex=True)
+        df['title'] = df['title'].str.encode('ascii', 'ignore').str.decode('ascii')
+        df_copy['title'] = df_copy['title'].astype(str).str[:250]
+        df_copy = df_copy[df_copy['created_utc'].apply(lambda x: str(x).isdigit())]
+        df_copy['score'] = df_copy['score'].astype('Int64').astype('str')
+        df_copy['num_comments'] = df_copy['num_comments'].astype('Int64').astype('str')
+        df_copy['created_utc'] = pd.to_datetime(df_copy['created_utc'], unit='s')
+        return df_copy
     except Exception as e:
-        print(f'Error parsing {file_path}')
-        write_to_error_file(f'Error parsing {file_path}\n')
+        print(f'Error parsing: {file_path}. Reason: {e}')
+        write_to_error_file(f'Error parsing: {file_path}. Reason: {e}\n')
         return None
 
 
@@ -27,7 +37,9 @@ def write_df_to_csv(df, file_path):
 
 
 def main():
-    REDDIT_DATA_DIR = 'reddit-data'
+    if len(sys.argv) != 2:
+        sys.exit('Invalid number of arguments. Usage: parse.py [REDDIT_DATA_DIRECTORY]')
+    REDDIT_DATA_DIR = sys.argv[1]
     CLEANED_REDDIT_DATA_DIR = 'cleaned-reddit-data'
     reddit_data_dirs = os.listdir(REDDIT_DATA_DIR)
     os.makedirs(CLEANED_REDDIT_DATA_DIR, exist_ok=True)
