@@ -1,7 +1,7 @@
 # Load Data
 
 ## Purpose
-This code is used to load the cleaned Reddit data produced by the [clean-data](https://github.com/lsdm-spring-2022/database/tree/main/clean-reddit-data) code into a MySQL database. This code uses Goroutines and batch insert statements to load the data into a MySQL database.
+This code is used to load the cleaned Reddit data produced by the [clean-reddit-data](../clean-reddit-data) code into a MySQL database. This code uses Goroutines and batch insert statements to load the data into a MySQL database.
 
 ## Loading Process
 1. The main process creates a list of all directories in the `cleaned-reddit-data` directory
