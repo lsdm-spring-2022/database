@@ -32,12 +32,12 @@ def main():
     reddit_data_dirs = os.listdir(REDDIT_DATA_DIR)
     os.makedirs(CLEANED_REDDIT_DATA_DIR, exist_ok=True)
     for data_dir in reddit_data_dirs:
-        if data_dir != '.DS_Store':
+        if '-reddit-data' in data_dir:
             region = data_dir.split('-')[0]
             cleaned_dir_name = f'{region}-cleaned-reddit-data'
             cleaned_dir_path = os.path.join(CLEANED_REDDIT_DATA_DIR, cleaned_dir_name)
             os.makedirs(cleaned_dir_path, exist_ok=True)
-            current_dir_path = os.path.join('reddit-data', data_dir)
+            current_dir_path = os.path.join(REDDIT_DATA_DIR, data_dir)
             files = os.listdir(current_dir_path)
             for file in files:
                 current_file_path = os.path.join(current_dir_path, file)

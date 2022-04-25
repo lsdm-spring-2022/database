@@ -1,9 +1,11 @@
 .env
 
-mysqldb-data/
+lsdm-data/
 
 .idea/
 
 reddit-data/
 
 cleaned-reddit-data/
+
+*/error-log.txt
