@@ -19,7 +19,7 @@ def read_csv_data(file_path, region):
         df_copy['region'] = region
         df_copy['date_stored'] = current_time
         df_copy['title'] = df_copy['title'].replace(r'\r+|\n+|\t+|\,+|\'+', '', regex=True)
-        df['title'] = df['title'].str.encode('ascii', 'ignore').str.decode('ascii')
+        df_copy['title'] = df_copy['title'].str.encode('ascii', 'ignore').str.decode('ascii')
         df_copy['title'] = df_copy['title'].astype(str).str[:250]
         df_copy = df_copy[df_copy['created_utc'].apply(lambda x: str(x).isdigit())]
         df_copy['score'] = df_copy['score'].astype('Int64').astype('str')
