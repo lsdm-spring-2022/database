@@ -1,24 +1,24 @@
-CREATE DATABASE IF NOT EXISTS socialmedia;
+CREATE DATABASE IF NOT EXISTS socialmedia CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
 
 CREATE TABLE IF NOT EXISTS reddit (
     date_posted TIMESTAMP,
     region VARCHAR(50),
-    subreddit VARCHAR(20),
+    subreddit VARCHAR(100),
     post_title VARCHAR(255),
-    upvotes INTEGER(11),
+    upvotes INTEGER,
     date_stored TIMESTAMP,
-    comments INTEGER(11),
-    PRIMARY KEY (date_posted, subreddit)
+    comments INTEGER,
+    PRIMARY KEY (date_posted, post_title, upvotes)
 );
 
 CREATE TABLE IF NOT EXISTS twitter (
     date_posted TIMESTAMP,
     region VARCHAR(50),
     tweet VARCHAR(280),
-    likes INTEGER(11),
-    retweets INTEGER(11),
+    likes INTEGER,
+    retweets INTEGER,
     date_stored TIMESTAMP,
-    comments INTEGER(11),
+    comments INTEGER,
     PRIMARY KEY (date_posted, tweet)
 );
 

@@ -10,4 +10,4 @@ services:
     ports:
       - 3306:3306
     volumes:
-      - ./mysqldb-data:/var/lib/mysql
+      - ./lsdm-data:/var/lib/mysql
