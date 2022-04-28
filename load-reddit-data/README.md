@@ -1,4 +1,4 @@
-# Load Data
+# Load Reddit Data
 
 ## Purpose
 This code is used to load the cleaned Reddit data produced by the [clean-reddit-data](../clean-reddit-data) code into a MySQL database. This code uses Goroutines and batch insert statements to load the data into a MySQL database.
